@@ -1,4 +1,4 @@
-# claude-setup
+# ai_project_init
 
 Claude Code best practices registry — agents, skills, commands, MCP servers, git hooks, and CLAUDE.md templates in one repo.
 
@@ -6,15 +6,15 @@ Claude Code best practices registry — agents, skills, commands, MCP servers, g
 
 ```bash
 # Clone and run setup
-git clone https://github.com/tibelf/claude-setup.git ~/.claude-setup
-cd ~/.claude-setup
+git clone https://github.com/tibelf/ai_project_init.git ~/.ai_project_init
+cd ~/.ai_project_init
 ./setup.sh
 ```
 
 Or run directly (clones to temp dir):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/tibelf/claude-setup/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tibelf/ai_project_init/main/setup.sh | bash
 ```
 
 ## What's Included

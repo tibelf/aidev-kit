@@ -1,6 +1,6 @@
 #!/bin/bash
 # prepare-commit-msg hook: Add branch name context
-# Installed by claude-setup
+# Installed by ai_project_init
 
 COMMIT_MSG_FILE=$1
 COMMIT_SOURCE=$2

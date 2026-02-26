@@ -1,6 +1,6 @@
 #!/bin/bash
 # post-checkout hook: Remind about CLAUDE.md changes
-# Installed by claude-setup
+# Installed by ai_project_init
 
 PREV_HEAD=$1
 NEW_HEAD=$2

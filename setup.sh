@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# claude-setup -- Interactive TUI installer for Claude Code agents, skills,
+# ai_project_init -- Interactive TUI installer for Claude Code agents, skills,
 # commands, MCP servers, and git hooks.
 #
 # Usage:
@@ -12,9 +12,18 @@
 #
 set -euo pipefail
 
-# ── Resolve repo directory from script location ─────────────────────────────
-SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_DIR="$SCRIPT_PATH"
+# ── Resolve repo directory (support curl | bash mode) ───────────────────────
+if [[ -z "${BASH_SOURCE[0]:-}" ]] || [[ "${BASH_SOURCE[0]}" == "/dev/stdin" ]] || [[ "${BASH_SOURCE[0]}" == "bash" ]]; then
+  REPO_URL="https://github.com/tibelf/ai_project_init.git"
+  TEMP_DIR=$(mktemp -d)
+  trap "rm -rf $TEMP_DIR" EXIT
+  echo "Cloning ai_project_init to temp directory..."
+  git clone --depth 1 "$REPO_URL" "$TEMP_DIR" 2>/dev/null
+  REPO_DIR="$TEMP_DIR"
+else
+  SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  REPO_DIR="$SCRIPT_PATH"
+fi
 
 # ── Defaults ─────────────────────────────────────────────────────────────────
 DRY_RUN=false
@@ -841,7 +850,7 @@ step_git_hooks() {
 
                 if [[ "$DRY_RUN" == true ]]; then
                     if [[ -f "$dest" && ! "$dest" == *.sample ]]; then
-                        PLAN_LINES+=("hook (alongside): ${name}.claude-setup -> .git/hooks/")
+                        PLAN_LINES+=("hook (alongside): ${name}.ai_project_init -> .git/hooks/")
                     else
                         PLAN_LINES+=("hook: $name -> .git/hooks/")
                     fi
@@ -849,10 +858,10 @@ step_git_hooks() {
                 else
                     if [[ -f "$dest" && "$(basename "$dest")" != *.sample ]]; then
                         # Existing hook (not a .sample) -- install alongside
-                        local alt_dest=".git/hooks/${name}.claude-setup"
+                        local alt_dest=".git/hooks/${name}.ai_project_init"
                         cp "$src" "$alt_dest"
                         chmod +x "$alt_dest"
-                        warn "↑ hook installed alongside existing: ${name}.claude-setup"
+                        warn "↑ hook installed alongside existing: ${name}.ai_project_init"
                         (( COUNT_ADDED++ )) || true
                     else
                         cp "$src" "$dest"
@@ -917,7 +926,7 @@ show_summary() {
 main() {
     if [[ "$INTERACTIVE" == true ]]; then
         gum style --foreground 212 --bold --border double --padding "1 3" \
-            "claude-setup" \
+            "ai_project_init" \
             "Interactive installer for Claude Code"
         echo ""
     fi

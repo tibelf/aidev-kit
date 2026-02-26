@@ -2,7 +2,7 @@
 set -e
 
 ###############################################################################
-# manage.sh - Content management for claude-setup
+# manage.sh - Content management for ai_project_init
 #
 # Provides bidirectional sync between user's environment and this repo.
 # Uses gum TUI for interactive menus.
@@ -876,7 +876,7 @@ flow_sync() {
 main() {
   ensure_deps
 
-  heading "claude-setup content manager"
+  heading "ai_project_init content manager"
   echo ""
 
   local action
