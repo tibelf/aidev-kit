@@ -18,7 +18,7 @@ if [[ -z "${BASH_SOURCE[0]:-}" ]] || [[ "${BASH_SOURCE[0]}" == "/dev/stdin" ]] |
   TEMP_DIR=$(mktemp -d)
   trap "rm -rf $TEMP_DIR" EXIT
   echo "Cloning aidev-kit to temp directory..."
-  git clone --depth 1 "$REPO_URL" "$TEMP_DIR" 2>/dev/null
+  git clone --depth 1 "$REPO_URL" "$TEMP_DIR"
   REPO_DIR="$TEMP_DIR"
 else
   SCRIPT_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -29,8 +29,7 @@ fi
 DRY_RUN=false
 ALL=false
 TARGET=""            # "user" or "project"; empty = ask interactively
-# Disable interactive mode when stdin is not a terminal (e.g. curl | bash)
-[[ -t 0 ]] && INTERACTIVE=true || INTERACTIVE=false
+INTERACTIVE=true
 
 # ── Parse arguments ──────────────────────────────────────────────────────────
 while [[ $# -gt 0 ]]; do
