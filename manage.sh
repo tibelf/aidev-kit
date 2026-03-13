@@ -368,7 +368,7 @@ flow_add() {
 
   heading "Select items to add to repo:"
   local selected
-  selected=$(printf '%s\n' "${choice_lines[@]}" | gum choose --no-limit --height 20) || true
+  selected=$(printf '%s\n' "${choice_lines[@]}" | gum choose --no-limit --height 40) || true
 
   if [[ -z "$selected" ]]; then
     info "Nothing selected."
