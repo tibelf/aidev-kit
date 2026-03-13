@@ -7,6 +7,7 @@ GIT_ROOT="$(git rev-parse --show-toplevel)"
 SCRIPT="$GIT_ROOT/auto_docs_after_commit.sh"
 
 if [[ -f "$SCRIPT" ]]; then
+    export DEBUG=1
     "$SCRIPT"
 else
     echo "[post-commit] auto_docs_after_commit.sh not found, skipping."
